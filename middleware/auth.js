@@ -1,9 +1,10 @@
 import jwt from 'jsonwebtoken';
-import config from '../config';
+import config from 'config';
 
-const { JWT_SECRET } = config;
-
+// const { JWT_SECRET } = config;
 export default (req, res, next) => {
+  console.log(config.get('jwtSecret'));
+
   const token = req.header('x-auth-token');
 
   // Check for token
@@ -12,7 +13,7 @@ export default (req, res, next) => {
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token, config.get('jwtSecret'));
     // Add user from payload
     req.user = decoded;
     next();
