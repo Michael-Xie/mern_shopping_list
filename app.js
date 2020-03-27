@@ -4,7 +4,7 @@ import path from 'path';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import config from './config';
+import config from 'config';
 
 // routes
 import authRoutes from './routes/api/auth';
@@ -12,7 +12,6 @@ import itemRoutes from './routes/api/items';
 import userRoutes from './routes/api/users';
 
 const { MONGO_URI, MONGO_DB_NAME } = config;
-
 const app = express();
 
 // CORS Middleware
@@ -23,7 +22,8 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 // DB Config
-const db = `${MONGO_URI}/${MONGO_DB_NAME}`;
+// const db = `${MONGO_URI}/${MONGO_DB_NAME}`;
+const db = config.get('mongoURI');
 
 // Connect to Mongo
 mongoose

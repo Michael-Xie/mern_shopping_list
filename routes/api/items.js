@@ -12,6 +12,7 @@ const router = Router();
  */
 
 router.get('/', async (req, res) => {
+
   try {
     const items = await Item.find();
     if (!items) throw Error('No items');
